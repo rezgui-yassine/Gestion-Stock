@@ -24,6 +24,7 @@ public class CommandeFournaiseur extends AbstractEntity {
     @Column(name = "datecommande")
     private Instant dateCommande;
 
+    // i use ManyToOne because i have many commandes for one fournisseur
     @ManyToOne
     @JoinColumn(name = "idFournaiseur")
     private Fournisseur fournisseur;
