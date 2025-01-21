@@ -1,10 +1,7 @@
 package com.yassinecoding.gestiondestock.dto;
 
-import com.yassinecoding.gestiondestock.model.Adresse;
-import com.yassinecoding.gestiondestock.model.CommandeClient;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,11 +11,11 @@ import java.util.List;
 @Data
 public class ClientDto {
 
-
+    private Integer id;
     private String nom;
     private String prenom;
 
-    private Adresse adresse;
+    private AdresseDto adresse;
 
     private String photo;
 
@@ -26,6 +23,7 @@ public class ClientDto {
 
     private String numTel;
 
+    @JsonIgnore
 
-    private List<CommandeClient> commandeClients;
+    private List<CommandeClientDto> commandeClients;
 }

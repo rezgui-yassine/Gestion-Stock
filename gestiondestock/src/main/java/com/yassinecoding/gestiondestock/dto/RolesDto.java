@@ -1,6 +1,6 @@
 package com.yassinecoding.gestiondestock.dto;
 
-import jakarta.persistence.Column;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,5 +8,8 @@ import lombok.Data;
 @Data
 public class RolesDto {
 
+    private Integer id;
     private String roleName;
+
+    private UtilisateurDto utilisateur;
 }

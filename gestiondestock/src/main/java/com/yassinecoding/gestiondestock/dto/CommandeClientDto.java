@@ -13,16 +13,11 @@ import java.util.List;
 @Data
 public class CommandeClientDto {
 
-
+    private Integer id;
     private String Code;
-
-
 
     private Instant dateCommande;
 
-
-
-    private Client client;
-
-    private List<LigneCommandeClient> ligneCommandeClients;
+    private ClientDto client;
+    private List<LigneCommandeClientDto> ligneCommandeClients;
 }

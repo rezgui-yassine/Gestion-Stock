@@ -1,17 +1,18 @@
 package com.yassinecoding.gestiondestock.dto;
 
-import com.yassinecoding.gestiondestock.model.Article;
-import com.yassinecoding.gestiondestock.model.CommandeFournisseur;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
 import lombok.Builder;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Builder
 @Data
 public class LigneCommandeFournisseurDto {
+    private Integer id;
+    private ArticleDto article;
 
-    private Article article;
-
-    private CommandeFournisseur commandeFournisseur;
+    private CommandeFournisseurDto commandeFournisseur;
+    private BigDecimal quantite;
+    private BigDecimal prixUnitaire;
 }

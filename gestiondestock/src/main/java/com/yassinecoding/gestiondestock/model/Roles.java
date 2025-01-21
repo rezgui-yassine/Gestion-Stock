@@ -1,9 +1,7 @@
 package com.yassinecoding.gestiondestock.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -17,4 +15,8 @@ public class Roles extends AbstractEntity {
 
         @Column(name = "role_name")
         private String roleName;
+
+        @ManyToOne
+        @JoinColumn(name = "idUtilisateur")
+        private Utilisateur utilisateur;
 }

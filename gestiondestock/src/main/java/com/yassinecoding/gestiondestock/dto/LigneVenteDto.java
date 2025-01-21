@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 @Builder
 @Data
 public class LigneVenteDto {
-
-    private Vents vente;
-
+    private Integer id;
+    private VentsDto vente;
     private BigDecimal quantite;
+    private BigDecimal prixUnitaire;
 }

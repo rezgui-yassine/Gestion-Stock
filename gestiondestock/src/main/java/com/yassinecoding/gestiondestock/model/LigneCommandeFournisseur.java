@@ -4,6 +4,8 @@ package com.yassinecoding.gestiondestock.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,4 +22,9 @@ public class LigneCommandeFournisseur extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "idCommandeFournisseur")
     private CommandeFournisseur commandeFournisseur;
+
+    @Column(name = "quantite")
+    private BigDecimal quantite;
+    @Column(name = "prixUnitaire")
+    private BigDecimal prixUnitaire;
 }

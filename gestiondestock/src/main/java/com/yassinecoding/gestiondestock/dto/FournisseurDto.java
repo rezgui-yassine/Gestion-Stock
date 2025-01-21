@@ -14,22 +14,21 @@ import java.util.List;
 @Data
 public class FournisseurDto {
 
+    private Integer id;
     private String nom;
 
     private String prenom;
 
 
-    private Adresse adresse;
-
+    private AdresseDto adresse;
 
     private String photo;
-
 
     private String mail;
 
     private String numTel;
 
 
-    private List<CommandeFournisseur> commandeFournisseurs;
+    private List<CommandeFournisseurDto> commandeFournisseurs;
 
 }
