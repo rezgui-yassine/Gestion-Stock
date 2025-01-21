@@ -30,4 +30,17 @@ public class CategoryDto {
                 .designation(category.getDesignation())
                 .build();
     }
+    // creer une methode pour convertir un DTO en objet
+    public Category toEntity(CategoryDto categoryDto){
+        if (categoryDto==null){
+            return  null;
+            // TODO throw an exception if categoryDto is null
+        }
+        return  Category.builder()
+//                .id(categoryDto.getId())
+                .code(categoryDto.getCode())
+                .designation(categoryDto.getDesignation())
+                .build();
+
+    }
 }

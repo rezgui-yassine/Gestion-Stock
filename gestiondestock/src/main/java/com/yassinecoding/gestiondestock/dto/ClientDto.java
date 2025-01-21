@@ -2,6 +2,7 @@ package com.yassinecoding.gestiondestock.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.yassinecoding.gestiondestock.model.Client;
 import lombok.Builder;
 import lombok.Data;
 
@@ -26,4 +27,15 @@ public class ClientDto {
     @JsonIgnore
 
     private List<CommandeClientDto> commandeClients;
+
+    public Client toEntity (Client client)
+    {
+        if (client == null)
+        {
+            return null;
+            //TODO throw an exception if client is null
+        }
+        return Client.builder().build();
+    }
+
 }
