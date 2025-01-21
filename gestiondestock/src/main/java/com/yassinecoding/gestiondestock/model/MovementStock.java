@@ -1,17 +1,19 @@
 package com.yassinecoding.gestiondestock.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "movementStock")
 public class MovementStock extends AbstractEntity {
+
+    @ManyToOne
+    @JoinColumn(name = "idArticle")
+    private Article article;
+
 }

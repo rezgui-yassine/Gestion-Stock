@@ -1,35 +1,31 @@
+// CommandeFournisseur.java
 package com.yassinecoding.gestiondestock.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "commande_fournaiseur")
-public class CommandeFournaiseur extends AbstractEntity {
+@Table(name = "commande_fournisseur")
+public class CommandeFournisseur extends AbstractEntity {
 
     @Column(name = "code")
     private String code;
 
-
     @Column(name = "datecommande")
     private Instant dateCommande;
 
-    // i use ManyToOne because i have many commandes for one fournisseur
     @ManyToOne
-    @JoinColumn(name = "idFournaiseur")
+    @JoinColumn(name = "idFournisseur")
     private Fournisseur fournisseur;
 
-    @OneToMany(mappedBy = "commandeFournaiseur")
+    @OneToMany(mappedBy = "commandeFournisseur")
     private List<LigneCommandeFournisseur> ligneCommandeFournisseurs;
-
 }
