@@ -28,20 +28,20 @@ public class ArticleDto {
 
     //  crrer une methode pour convertir un objet en DTO
 
-    public static   ArticleDto fromEntity(Article articleDto){
-      if (articleDto == null){
+    public static   ArticleDto fromEntity(Article article){
+      if (article == null){
           return null;
           //TODO throw an exception if adresse is null
       }
       return ArticleDto.builder()
-              .id(articleDto.getId())
-              .codeArticle(articleDto.getCodeArticle())
-              .designation(articleDto.getDesignation())
-              .priceUnitaireHt(articleDto.getPriceUnitaireHt())
-              .tauxTva(articleDto.getTauxTva())
-              .prixUnitaireTtc(articleDto.getPrixUnitaireTtc())
-              .photo(articleDto.getPhoto())
-              .category(CategoryDto.fromEntity(articleDto.getCategory()))
+              .id(article.getId())
+              .codeArticle(article.getCodeArticle())
+              .designation(article.getDesignation())
+              .priceUnitaireHt(article.getPriceUnitaireHt())
+              .tauxTva(article.getTauxTva())
+              .prixUnitaireTtc(article.getPrixUnitaireTtc())
+              .photo(article.getPhoto())
+              .category(CategoryDto.fromEntity(article.getCategory()))
               .build();
     }
 
