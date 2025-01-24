@@ -28,14 +28,14 @@ public class ClientDto {
 
     private List<CommandeClientDto> commandeClients;
 
-    public Client toEntity (Client client)
-    {
-        if (client == null)
-        {
-            return null;
-            //TODO throw an exception if client is null
-        }
-        return Client.builder().build();
-    }
+//    public Client toEntity (Client client)
+//    {
+//        if (client == null)
+//        {
+//            return null;
+//            //TODO throw an exception if client is null
+//        }
+//
+//    }
 
 }

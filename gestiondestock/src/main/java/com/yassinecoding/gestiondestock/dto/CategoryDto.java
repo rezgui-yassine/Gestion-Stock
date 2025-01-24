@@ -36,11 +36,11 @@ public class CategoryDto {
             return  null;
             // TODO throw an exception if categoryDto is null
         }
-        return  Category.builder()
-//                .id(categoryDto.getId())
-                .code(categoryDto.getCode())
-                .designation(categoryDto.getDesignation())
-                .build();
+        Category category = new Category();
+        category.setId(categoryDto.getId());
+        category.setCode(categoryDto.getCode());
+        category.setDesignation(categoryDto.getDesignation());
+        return category;
 
     }
 }
