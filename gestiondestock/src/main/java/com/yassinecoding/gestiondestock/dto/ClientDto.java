@@ -28,14 +28,43 @@ public class ClientDto {
 
     private List<CommandeClientDto> commandeClients;
 
-//    public Client toEntity (Client client)
-//    {
-//        if (client == null)
-//        {
-//            return null;
-//            //TODO throw an exception if client is null
-//        }
-//
-//    }
+    // creat a method to convert an object to DTO
+
+    public static ClientDto fromEntity(Client client){
+        if (client == null){
+            return null;
+            // TODO throw an exception if client is null
+
+        }
+        // convert an object to DTO
+        return ClientDto.builder()
+                .id(client.getId())
+                .nom(client.getNom())
+                .prenom(client.getPrenom())
+                .adresse(AdresseDto.fromEntity(client.getAdresse()))
+                .photo(client.getPhoto())
+                .mail(client.getMail())
+                .numTel(client.getNumTel())
+                .build();
+
+    }
+
+    // creat a method to convert a DTO to an object
+    public static Client toEntity (ClientDto clientDto){
+        if (clientDto == null){
+            return null;
+            // TODO throw an exception if clientDto is null
+        }
+        // convert a DTO to an object
+        Client client = new Client();
+        client.setId(clientDto.getId());
+        client.setNom(clientDto.getNom());
+        client.setPrenom(clientDto.getPrenom());
+        client.setAdresse(AdresseDto.toEntity(clientDto.getAdresse()));
+        client.setPhoto(clientDto.getPhoto());
+        client.setMail(clientDto.getMail());
+        client.setNumTel(clientDto.getNumTel());
+        return client;
+    }
 
 }

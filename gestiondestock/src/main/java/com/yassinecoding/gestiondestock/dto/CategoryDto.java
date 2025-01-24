@@ -31,7 +31,7 @@ public class CategoryDto {
                 .build();
     }
     // creer une methode pour convertir un DTO en objet
-    public Category toEntity(CategoryDto categoryDto){
+    public static Category toEntity(CategoryDto categoryDto){
         if (categoryDto==null){
             return  null;
             // TODO throw an exception if categoryDto is null
@@ -41,6 +41,7 @@ public class CategoryDto {
         category.setCode(categoryDto.getCode());
         category.setDesignation(categoryDto.getDesignation());
         return category;
+
 
     }
 }
