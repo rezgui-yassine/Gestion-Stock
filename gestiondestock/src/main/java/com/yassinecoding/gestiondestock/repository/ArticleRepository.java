@@ -5,10 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
+    Optional<Article>findArticleById(Integer id);
     Optional<Article> findArticleByCodeArticle(String codeArticle);
     // ecrire une requete personalisee
 
