@@ -1,4 +1,7 @@
 package com.yassinecoding.gestiondestock.repository;
 
-public interface ClientRepository {
+import com.yassinecoding.gestiondestock.model.Client;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ClientRepository extends JpaRepository<Client, Integer> {
 }

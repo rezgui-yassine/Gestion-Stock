@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/gestionstock
+    url: jdbc:postgresql://localhost:5432/gestionStock
     username: postgres
     password: Rayana2024
     driver-class-name: org.postgresql.Driver
