@@ -4,6 +4,7 @@ import com.yassinecoding.gestiondestock.dto.ArticleDto;
 import com.yassinecoding.gestiondestock.exception.EntityNotFoundException;
 import com.yassinecoding.gestiondestock.exception.ErrorCode;
 import com.yassinecoding.gestiondestock.exception.InvalidEntityException;
+import com.yassinecoding.gestiondestock.model.Article;
 import com.yassinecoding.gestiondestock.repository.ArticleRepository;
 import com.yassinecoding.gestiondestock.services.ArticleService;
 import com.yassinecoding.gestiondestock.validator.ArticleValidator;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -50,27 +53,44 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("Article ID is null");
             return null;
         }
-        return articleRepository.findById(id)
+        Optional<Article> articleOptional = articleRepository.findArticleById(id);
+        return articleOptional
                 .map(ArticleDto::fromEntity)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "Aucun article avec l'ID = " + id + " n'été trouvé dans la BDD",
+                        "Aucun article avec l'ID = " + id + " n'a été trouvé dans la BDD",
                         ErrorCode.ARTICLE_NOT_FOUND)
                 );
-
     }
 
     @Override
     public ArticleDto findByCodeArticle(String codeArticle) {
-        return null;
+        if (codeArticle == null) {
+            log.error("Article Code is null");
+            return null;
+        }
+        Optional<Article> articleOptional = articleRepository.findArticleByCodeArticle(codeArticle);
+        return articleOptional
+                .map(ArticleDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Aucun article avec Code article  = " + codeArticle + " n'a été trouvé dans la BDD",
+                        ErrorCode.ARTICLE_NOT_FOUND)
+                );
     }
 
     @Override
     public List<ArticleDto> findAll() {
-        return List.of();
+        return articleRepository.findAll().stream()
+                .map(ArticleDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void deleteArticle(Integer id) {
+        if (id == null) {
+            log.error("Article ID is null");
+            return;
+        }
+        articleRepository.deleteById(id);
 
     }
 }
