@@ -10,6 +10,7 @@ import com.yassinecoding.gestiondestock.services.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -64,7 +65,7 @@ public class CategoryImpl implements CategoryService {
     @Override
     public CategoryDto findByCode(String code) {
         // verification of the validity of the category
-        if (code.isEmpty()){
+        if (StringUtils.hasLength(code)){
             log.error("Category code is empty");
             return null;
         }

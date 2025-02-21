@@ -1,5 +1,6 @@
 package com.yassinecoding.gestiondestock.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yassinecoding.gestiondestock.model.Client;
 import com.yassinecoding.gestiondestock.model.CommandeClient;
 import com.yassinecoding.gestiondestock.model.LigneCommandeClient;
@@ -10,14 +11,17 @@ import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Builder
 @Data
+@Builder
+
 public class CommandeClientDto {
 
     private Integer id;
     private String code;
     private Instant dateCommande;
     private ClientDto client;
+    @JsonIgnore
+
     private List<LigneCommandeClientDto> ligneCommandeClients;
 
     // Create a method to convert an object to DTO

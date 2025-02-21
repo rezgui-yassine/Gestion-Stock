@@ -1,6 +1,8 @@
+// LigneCommandeClientValidator.java
 package com.yassinecoding.gestiondestock.validator;
 
 import com.yassinecoding.gestiondestock.dto.LigneCommandeClientDto;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,7 @@ public class LigneCommandeClientValidator {
 
     public static List<String> validate(LigneCommandeClientDto ligneCommandeClientDto) {
 
-        List<String> errors = new ArrayList<>(); // Create a list of errors
+        List<String> errors = new ArrayList<>();
 
         if (ligneCommandeClientDto == null) {
             errors.add("Veuillez renseigner le produit de la ligne commande client");
@@ -20,6 +22,10 @@ public class LigneCommandeClientValidator {
 
         if (ligneCommandeClientDto.getCommandeClient() == null) {
             errors.add("Veuillez renseigner la commande client de la ligne commande client");
+        } else {
+            if (!StringUtils.hasLength(ligneCommandeClientDto.getCommandeClient().getCode())) {
+                errors.add("Veuillez renseigner le code de la commande client");
+            }
         }
 
         if (ligneCommandeClientDto.getArticle() == null) {

@@ -1,11 +1,15 @@
+server:
+  port: 8282
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/gestionStock
     username: postgres
-    password: root
+    password: Rayana2024
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
 #Rayana2024 in  the other computer
+#root in the other computer AND PORT IS 8080
