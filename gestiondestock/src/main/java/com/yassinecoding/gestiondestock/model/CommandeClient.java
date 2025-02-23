@@ -1,6 +1,5 @@
 package com.yassinecoding.gestiondestock.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +7,6 @@ import java.time.Instant;
 import java.util.List;
 
 @Data
-
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -16,14 +14,11 @@ import java.util.List;
 @Table(name = "commande_client")
 public class CommandeClient extends AbstractEntity {
 
-
     @Column(name = "code")
-    private String Code;
+    private String code;
 
     @Column(name = "datecommande")
-
     private Instant dateCommande;
-
 
     @ManyToOne
     @JoinColumn(name = "idclient")
@@ -31,6 +26,4 @@ public class CommandeClient extends AbstractEntity {
 
     @OneToMany(mappedBy = "commandeClient")
     private List<LigneCommandeClient> ligneCommandeClients;
-
-
 }

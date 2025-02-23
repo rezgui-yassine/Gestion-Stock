@@ -13,5 +13,5 @@ public interface CommandeClientService {
 //    CommandeClientDto findByClientIdAndCommandeId(Integer clientId, Integer commandeId);
 //    CommandeClientDto findByCodeCommande(String codeCommande);
     List<CommandeClientDto> findAll();
-    CommandeClientDto delete(Integer id);
+    void delete(Integer id);
 }

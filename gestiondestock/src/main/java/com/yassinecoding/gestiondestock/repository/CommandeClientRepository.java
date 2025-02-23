@@ -7,7 +7,5 @@ import java.util.Optional;
 
 public interface CommandeClientRepository extends JpaRepository<CommandeClient, Integer> {
     Optional<CommandeClient> findCommandeClientByCode(String code);
-    Optional<CommandeClient> findCommandeClientById(Integer id);
-    Optional<CommandeClient> findByCodeCommande(String codeCommande);
-
+    Optional<CommandeClient> findById(Integer id);
 }
