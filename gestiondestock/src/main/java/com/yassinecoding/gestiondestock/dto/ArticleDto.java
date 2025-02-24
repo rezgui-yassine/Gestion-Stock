@@ -24,6 +24,8 @@ public class ArticleDto {
 
     private String photo;
 
+    private Integer idEntreprise;
+
     private CategoryDto category;
 
     //  crrer une methode pour convertir un objet en DTO
@@ -41,6 +43,7 @@ public class ArticleDto {
               .tauxTva(article.getTauxTva())
               .prixUnitaireTtc(article.getPrixUnitaireTtc())
               .photo(article.getPhoto())
+              .idEntreprise(article.getIdEntreprise())
               .category(CategoryDto.fromEntity(article.getCategory()))
               .build();
     }

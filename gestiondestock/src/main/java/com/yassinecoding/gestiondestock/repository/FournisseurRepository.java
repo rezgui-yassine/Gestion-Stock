@@ -11,4 +11,5 @@ public interface FournisseurRepository extends JpaRepository<Fournisseur, Intege
     Optional<Fournisseur> findFournisseurByNom(String nom);
 
 
+
 }

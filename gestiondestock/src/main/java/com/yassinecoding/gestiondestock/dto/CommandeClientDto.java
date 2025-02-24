@@ -20,8 +20,10 @@ public class CommandeClientDto {
     private String code;
     private Instant dateCommande;
     private ClientDto client;
-    @JsonIgnore
 
+    private Integer idEntreprise;
+
+    @JsonIgnore
     private List<LigneCommandeClientDto> ligneCommandeClients;
 
     // Create a method to convert an object to DTO
@@ -35,6 +37,7 @@ public class CommandeClientDto {
                 .code(commandeClient.getCode())
                 .dateCommande(commandeClient.getDateCommande())
                 .client(ClientDto.fromEntity(commandeClient.getClient()))
+                .idEntreprise(commandeClient.getIdEntreprise())
                 .ligneCommandeClients(commandeClient.getLigneCommandeClients() != null ?
                         commandeClient.getLigneCommandeClients().stream()
                                 .map(LigneCommandeClientDto::fromEntity)

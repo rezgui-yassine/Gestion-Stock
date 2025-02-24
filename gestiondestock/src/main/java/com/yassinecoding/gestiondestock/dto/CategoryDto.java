@@ -14,6 +14,7 @@ public class CategoryDto {
     private Integer id;
     private String code;
     private String designation;
+    private Integer idEntreprise;
 
     @JsonIgnore
     private List<ArticleDto> articles;
@@ -28,6 +29,7 @@ public class CategoryDto {
                 .id(category.getId())
                 .code(category.getCode())
                 .designation(category.getDesignation())
+                .idEntreprise(category.getIdEntreprise())
                 .build();
     }
     // creer une methode pour convertir un DTO en objet

@@ -15,7 +15,10 @@ public class CommandeFournisseurDto {
     private Integer id;
     private String code;
     private Instant dateCommande;
-    private FournisseurDto fournisseur;
+    private FournisseurDto fournisseur; // This is the DTO representation of Fournisseur
+
+    private Integer idEntreprise;
+
     private List<LigneCommandeFournisseurDto> ligneCommandeFournisseurs;
 
     // Create a method to convert an object to DTO
@@ -28,6 +31,7 @@ public class CommandeFournisseurDto {
                 .id(commandeFournisseur.getId())
                 .code(commandeFournisseur.getCode())
                 .dateCommande(commandeFournisseur.getDateCommande())
+                .idEntreprise(commandeFournisseur.getIdEntreprise())
                 .fournisseur(FournisseurDto.fromEntity(commandeFournisseur.getFournisseur()))
                 .ligneCommandeFournisseurs(commandeFournisseur.getLigneCommandeFournisseurs() != null ?
                         commandeFournisseur.getLigneCommandeFournisseurs().stream()
@@ -37,20 +41,16 @@ public class CommandeFournisseurDto {
     }
 
     // Create a method to convert a DTO to an object
-    public static CommandeFournisseur toEntity(CommandeFournisseurDto commandeFournisseurDto) {
-        if (commandeFournisseurDto == null) {
+    public static CommandeFournisseur toEntity(CommandeFournisseurDto dto) {
+        if (dto == null) {
             return null;
-            // TODO throw an exception if commandeFournisseurDto is null
         }
         CommandeFournisseur commandeFournisseur = new CommandeFournisseur();
-        commandeFournisseur.setId(commandeFournisseurDto.getId());
-        commandeFournisseur.setCode(commandeFournisseurDto.getCode());
-        commandeFournisseur.setDateCommande(commandeFournisseurDto.getDateCommande());
-        commandeFournisseur.setFournisseur(FournisseurDto.toEntity(commandeFournisseurDto.getFournisseur()));
-        commandeFournisseur.setLigneCommandeFournisseurs(commandeFournisseurDto.getLigneCommandeFournisseurs() != null ?
-                commandeFournisseurDto.getLigneCommandeFournisseurs().stream()
-                        .map(LigneCommandeFournisseurDto::toEntity)
-                        .collect(Collectors.toList()) : null);
+        commandeFournisseur.setId(dto.getId());
+        commandeFournisseur.setCode(dto.getCode());
+        commandeFournisseur.setDateCommande(dto.getDateCommande());
+        commandeFournisseur.setFournisseur(FournisseurDto.toEntity(dto.getFournisseur()));
+        commandeFournisseur.setIdEntreprise(dto.getIdEntreprise());
         return commandeFournisseur;
     }
 }

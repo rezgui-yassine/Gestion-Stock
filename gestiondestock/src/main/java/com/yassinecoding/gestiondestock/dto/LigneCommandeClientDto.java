@@ -15,6 +15,7 @@ public class LigneCommandeClientDto {
     private CommandeClientDto commandeClient;
     private BigDecimal quantite;
     private BigDecimal prixUnitaire;
+    private Integer idEntreprise;
 
     // Create a method to convert an object to DTO
     public static LigneCommandeClientDto fromEntity(LigneCommandeClient ligneCommandeClient) {
@@ -28,6 +29,7 @@ public class LigneCommandeClientDto {
                 .commandeClient(CommandeClientDto.fromEntity(ligneCommandeClient.getCommandeClient()))
                 .quantite(ligneCommandeClient.getQuantite())
                 .prixUnitaire(ligneCommandeClient.getPrixUnitaire())
+                .idEntreprise(ligneCommandeClient.getIdEntreprise())
                 .build();
     }
 

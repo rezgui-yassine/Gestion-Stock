@@ -13,6 +13,7 @@ public class VentsDto {
     private String code;
     private Instant dateVente;
     private String commentaire;
+    private Integer idEntreprise;
 
     // Create a method to convert an object to DTO
     public static VentsDto fromEntity(Vents vente) {
@@ -25,6 +26,7 @@ public class VentsDto {
                 .code(vente.getCode())
                 .dateVente(vente.getDateVente())
                 .commentaire(vente.getCommentaire())
+                .idEntreprise(vente.getIdEntreprise())
                 .build();
     }
 

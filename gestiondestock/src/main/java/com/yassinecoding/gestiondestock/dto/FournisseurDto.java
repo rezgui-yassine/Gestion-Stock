@@ -1,25 +1,23 @@
 package com.yassinecoding.gestiondestock.dto;
 
-import com.yassinecoding.gestiondestock.model.Adresse;
-import com.yassinecoding.gestiondestock.model.CommandeFournisseur;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
+
+import com.yassinecoding.gestiondestock.dto.AdresseDto;
+import com.yassinecoding.gestiondestock.dto.CommandeFournisseurDto;
 import com.yassinecoding.gestiondestock.model.Fournisseur;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
-@Builder
 @Data
+@Builder
 public class FournisseurDto {
 
     private Integer id;
+
     private String nom;
 
     private String prenom;
-
 
     private AdresseDto adresse;
 
@@ -29,17 +27,15 @@ public class FournisseurDto {
 
     private String numTel;
 
+    private Integer idEntreprise;
 
+    @JsonIgnore
     private List<CommandeFournisseurDto> commandeFournisseurs;
 
-    // creat a method to convert an object to DTO
-    public static FournisseurDto fromEntity(Fournisseur fournisseur){
-        if (fournisseur == null){
+    public static FournisseurDto fromEntity(Fournisseur fournisseur) {
+        if (fournisseur == null) {
             return null;
-            // TODO throw an exception if fournisseur is null
-
         }
-        // convert an object to DTO
         return FournisseurDto.builder()
                 .id(fournisseur.getId())
                 .nom(fournisseur.getNom())
@@ -48,26 +44,24 @@ public class FournisseurDto {
                 .photo(fournisseur.getPhoto())
                 .mail(fournisseur.getMail())
                 .numTel(fournisseur.getNumTel())
+                .idEntreprise(fournisseur.getIdEntreprise())
                 .build();
-
     }
 
-    // creat a method to convert a DTO to an object
-    public static Fournisseur toEntity(FournisseurDto fournisseurDto){
-        if (fournisseurDto == null){
+    public static Fournisseur toEntity(FournisseurDto dto) {
+        if (dto == null) {
             return null;
-            // TODO throw an exception if fournisseurDto is null
         }
-        // convert a DTO to an object
         Fournisseur fournisseur = new Fournisseur();
-        fournisseur.setId(fournisseurDto.getId());
-        fournisseur.setNom(fournisseurDto.getNom());
-        fournisseur.setPrenom(fournisseurDto.getPrenom());
-        fournisseur.setAdresse(AdresseDto.toEntity(fournisseurDto.getAdresse()));
-        fournisseur.setPhoto(fournisseurDto.getPhoto());
-        fournisseur.setMail(fournisseurDto.getMail());
-        fournisseur.setNumTel(fournisseurDto.getNumTel());
+        fournisseur.setId(dto.getId());
+        fournisseur.setNom(dto.getNom());
+        fournisseur.setPrenom(dto.getPrenom());
+        fournisseur.setAdresse(AdresseDto.toEntity(dto.getAdresse()));
+        fournisseur.setPhoto(dto.getPhoto());
+        fournisseur.setMail(dto.getMail());
+        fournisseur.setNumTel(dto.getNumTel());
+        fournisseur.setIdEntreprise(dto.getIdEntreprise());
+
         return fournisseur;
     }
-
 }

@@ -25,6 +25,8 @@ public class MovementStockDto {
 
     private TypeMvtStk typeMvt;
 
+    private Integer idEntreprise;
+
     // Create a method to convert an object to DTO
     public static MovementStockDto fromEntity (MovementStock movementStock){
         if (movementStock == null){
@@ -37,6 +39,7 @@ public class MovementStockDto {
                 .quantite(movementStock.getQuantite())
                 .article(ArticleDto.fromEntity(movementStock.getArticle()))
                 .typeMvt(movementStock.getTypeMvt())
+                .idEntreprise(movementStock.getIdEntreprise())
                 .build();
 
     }

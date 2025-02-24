@@ -13,6 +13,7 @@ public class LigneVenteDto {
     private VentsDto vente;
     private BigDecimal quantite;
     private BigDecimal prixUnitaire;
+    private Integer idEntreprise;
 
     // Create a method to convert an object to DTO
     public static LigneVenteDto fromEntity(LigneVente ligneVente) {
@@ -25,6 +26,7 @@ public class LigneVenteDto {
                 .vente(VentsDto.fromEntity(ligneVente.getVente()))
                 .quantite(ligneVente.getQuantite())
                 .prixUnitaire(ligneVente.getPrixUnitaire())
+                .idEntreprise(ligneVente.getIdEntreprise())
                 .build();
     }
 

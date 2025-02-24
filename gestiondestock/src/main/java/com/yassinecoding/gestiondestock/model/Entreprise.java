@@ -36,6 +36,8 @@ import java.util.List;
  @Column(name = "numTel")
  private String numTel;
 
+
+
  @Column(name = "siteWeb")
  private String siteWeb;
 

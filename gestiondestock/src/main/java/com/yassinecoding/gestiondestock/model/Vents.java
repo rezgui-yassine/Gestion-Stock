@@ -25,4 +25,7 @@ public class Vents extends AbstractEntity {
     private Instant dateVente;
     @Column(name = "commentaire")
     private String commentaire;
+
+    @Column(name = "identreprise")
+    private Integer idEntreprise;
 }

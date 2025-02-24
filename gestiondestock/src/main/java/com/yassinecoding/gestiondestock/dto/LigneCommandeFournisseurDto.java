@@ -14,6 +14,7 @@ public class LigneCommandeFournisseurDto {
     private CommandeFournisseurDto commandeFournisseur;
     private BigDecimal quantite;
     private BigDecimal prixUnitaire;
+    private Integer idEntreprise;
 
     // Create a method to convert an object to DTO
     public static LigneCommandeFournisseurDto fromEntity(LigneCommandeFournisseur ligneCommandeFournisseur) {
@@ -27,6 +28,7 @@ public class LigneCommandeFournisseurDto {
                 .commandeFournisseur(CommandeFournisseurDto.fromEntity(ligneCommandeFournisseur.getCommandeFournisseur()))
                 .quantite(ligneCommandeFournisseur.getQuantite())
                 .prixUnitaire(ligneCommandeFournisseur.getPrixUnitaire())
+                .idEntreprise(ligneCommandeFournisseur.getIdEntreprise())
                 .build();
     }
 

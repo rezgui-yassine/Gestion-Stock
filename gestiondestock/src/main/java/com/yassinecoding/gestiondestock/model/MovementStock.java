@@ -27,4 +27,7 @@ public class MovementStock extends AbstractEntity {
     @Column(name = "typeMvt")
     private TypeMvtStk typeMvt;
 
+    @Column(name = "identreprise")
+    private Integer idEntreprise;
+
 }

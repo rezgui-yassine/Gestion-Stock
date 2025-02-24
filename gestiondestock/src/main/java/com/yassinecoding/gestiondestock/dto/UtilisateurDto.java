@@ -29,6 +29,7 @@ public class UtilisateurDto {
     private AdresseDto adresse;
 
     private String photo;
+    private Integer idEntreprise;
 
     private EntrepriseDto entreprise;
 
@@ -47,6 +48,7 @@ public class UtilisateurDto {
                 .motDePasse(utilisateur.getMotDePasse())
                 .adresse(AdresseDto.fromEntity(utilisateur.getAdresse()))
                 .photo(utilisateur.getPhoto())
+
                 .entreprise(EntrepriseDto.fromEntity(utilisateur.getEntreprise()))
                 .build();
     }
