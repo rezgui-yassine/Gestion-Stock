@@ -1,21 +1,18 @@
 package com.yassinecoding.gestiondestock.services.impl;
 
-import com.yassinecoding.gestiondestock.dto.CommandeFournisseurDto;
-import com.yassinecoding.gestiondestock.dto.FournisseurDto;
+import com.yassinecoding.gestiondestock.dto.*;
 import com.yassinecoding.gestiondestock.exception.EntityNotFoundException;
 import com.yassinecoding.gestiondestock.exception.ErrorCode;
 import com.yassinecoding.gestiondestock.exception.InvalidEntityException;
-import com.yassinecoding.gestiondestock.model.CommandeFournisseur;
-import com.yassinecoding.gestiondestock.model.Fournisseur;
+import com.yassinecoding.gestiondestock.model.*;
 import com.yassinecoding.gestiondestock.repository.*;
 import com.yassinecoding.gestiondestock.services.CommandeFournisseurService;
-import com.yassinecoding.gestiondestock.services.FournisseurService;
 import com.yassinecoding.gestiondestock.validator.CommandeFournisseurValidator;
-import com.yassinecoding.gestiondestock.validator.FournisseurValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +25,9 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
     private FournisseurRepository fournisseurRepository;
 
     private CommandeFournisseurRepository commandeFournisseurRepository;
+    private LigneCommandeFurnisseurRepository ligneCommandeFournisseurRepository;
+    private ArticleRepository articleRepository;
+
 
 
     @Autowired
@@ -58,20 +58,62 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
             throw new EntityNotFoundException("Aucun fournisseur avec l'ID " + dto.getFournisseur().getId() + " n'a été trouvé dans la base de données", ErrorCode.FOURNISSEUR_NOT_FOUND);
         }
 
-        // Convert the DTO to entity
-        CommandeFournisseur commandeFournisseur = CommandeFournisseurDto.toEntity(dto);
-        commandeFournisseur.setFournisseur(fournisseur.get());
+        // Initialize a list to collect any article-related errors
 
-        // Save the CommandeFournisseur entity
-        CommandeFournisseur savedCommandeFournisseur = commandeFournisseurRepository.save(commandeFournisseur);
+        // Initialize a list to collect any article-related errors
+        List<String> articleErrors = new ArrayList<>();
+
+        // Verify that the ligneCommandeClients list is not null and that each article in the list is valid
+        if (dto.getLigneCommandeFournisseurs() != null) {
+            dto.getLigneCommandeFournisseurs().forEach(ligCmdFrs  -> {
+                if (ligCmdFrs .getArticle() != null) {
+                    Optional<Article> article = articleRepository.findById(ligCmdFrs .getArticle().getId());
+                    if (article.isEmpty()) {
+                        log.warn("Article with ID {} was not found in the DB", ligCmdFrs .getArticle().getId());
+                        throw new InvalidEntityException("Aucun article avec l'ID " + ligCmdFrs .getArticle().getId() + " n'a été trouvé dans la base de données", ErrorCode.ARTICLE_NOT_FOUND);
+                    }
+                }
+                else {
+                    articleErrors.add("Impossibe d'enregistrer un commande avec un article Null "  );
+                }
+            });
+        }
+
+
+        // If there are article-related errors, log a warning and throw an InvalidEntityException
+        if (!articleErrors.isEmpty()) {
+            log.warn("Article is not exist {}", articleErrors);
+            throw new InvalidEntityException("L'article n'est pas exist", ErrorCode.ARTICLE_NOT_FOUND, articleErrors);
+        }
+
+        // Save the CommandeClient entity to the database
+        CommandeFournisseur savedCommandeClient = commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(dto));
+
+        // Set the saved CommandeClient entity to each LigneCommandeClient in the DTO
+        if (dto.getLigneCommandeFournisseurs()!= null) {
+            dto.getLigneCommandeFournisseurs().forEach(ligCmdFs -> {
+                LigneCommandeFournisseur ligneCommandeFournisseur = LigneCommandeFournisseurDto.toEntity(ligCmdFs);
+                ligneCommandeFournisseur.setCommandeFournisseur(savedCommandeClient);
+                ligneCommandeFournisseurRepository.save(ligneCommandeFournisseur);
+            });
+
+        }
 
         // Convert the saved entity back to DTO and return
-        return CommandeFournisseurDto.fromEntity(savedCommandeFournisseur);
+        return CommandeFournisseurDto.fromEntity(savedCommandeClient);
     }
 
     @Override
     public CommandeFournisseurDto findById(Integer id) {
-        return null;
+        if (id == null) {
+            log.error("Commande Fournisseur ID is null");
+            return null;
+        }
+
+        Optional<CommandeFournisseur> commandeFournisseur = commandeFournisseurRepository.findById(id);
+
+        return commandeFournisseur.map(CommandeFournisseurDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException("Aucune Commande Fournisseur avec l'ID " + id + " n'a été trouvée", ErrorCode.COMMANDE_FOURNISSEUR_NOT_FOUND));
     }
 
     @Override
