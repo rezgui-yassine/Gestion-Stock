@@ -11,10 +11,13 @@ import com.yassinecoding.gestiondestock.validator.CommandeFournisseurValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -25,15 +28,19 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
     private FournisseurRepository fournisseurRepository;
 
     private CommandeFournisseurRepository commandeFournisseurRepository;
-    private LigneCommandeFurnisseurRepository ligneCommandeFournisseurRepository;
     private ArticleRepository articleRepository;
+    private LigneCommandeFurnisseurRepository ligneCommandeFournisseurRepository;
+
 
 
 
     @Autowired
-    public CommandeFournisseurServiceImpl(FournisseurRepository fournisseurRepository, CommandeFournisseurRepository commandeFournisseurRepository) {
+    public CommandeFournisseurServiceImpl(FournisseurRepository fournisseurRepository, CommandeFournisseurRepository commandeFournisseurRepository, ArticleRepository articleRepository ,      LigneCommandeFurnisseurRepository ligneCommandeFournisseurRepository) {
         this.fournisseurRepository = fournisseurRepository;
         this.commandeFournisseurRepository = commandeFournisseurRepository;
+        this.articleRepository = articleRepository;
+        this.ligneCommandeFournisseurRepository=ligneCommandeFournisseurRepository;
+
     }
 
 
@@ -117,17 +124,35 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
     }
 
     @Override
-    public CommandeFournisseurDto findByNom(String nom) {
-        return null;
+    public CommandeFournisseurDto findByCode(String code) {
+        if(!StringUtils.hasLength(code)){
+            log.error("Commande Fournisseur CODE is null");
+            return null;
+        }
+
+        Optional<CommandeFournisseur>commandeFournisseurOptional = commandeFournisseurRepository.findCommandeFournisseurByCode(code);
+
+        return commandeFournisseurOptional.map(CommandeFournisseurDto::fromEntity)
+                .orElseThrow(
+                        ()-> new EntityNotFoundException("La commande fournisseur avec le code : "+code , ErrorCode.COMMANDE_FOURNISSEUR_NOT_FOUND)
+                );
     }
 
     @Override
     public List<CommandeFournisseurDto> findAll() {
-        return List.of();
+        return commandeFournisseurRepository.findAll().stream()
+                .map(CommandeFournisseurDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void delete(Integer id) {
+
+        if (id == null){
+            log.error(" L 'ID est Null you can't delete ");
+            return;
+        }
+        commandeFournisseurRepository.deleteById(id);
 
     }
 
