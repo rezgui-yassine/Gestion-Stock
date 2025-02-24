@@ -1,10 +1,12 @@
 package com.yassinecoding.gestiondestock.dto;
 
+import com.yassinecoding.gestiondestock.model.LigneVente;
 import com.yassinecoding.gestiondestock.model.Vents;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
+import java.util.List;
 
 @Builder
 @Data
@@ -13,7 +15,9 @@ public class VentsDto {
     private String code;
     private Instant dateVente;
     private String commentaire;
-    private Integer idEntreprise;
+//    private Integer idEntreprise;
+
+    private List<LigneVenteDto> ligneVentes;
 
     // Create a method to convert an object to DTO
     public static VentsDto fromEntity(Vents vente) {
@@ -26,7 +30,7 @@ public class VentsDto {
                 .code(vente.getCode())
                 .dateVente(vente.getDateVente())
                 .commentaire(vente.getCommentaire())
-                .idEntreprise(vente.getIdEntreprise())
+//                .idEntreprise(vente.getIdEntreprise())
                 .build();
     }
 

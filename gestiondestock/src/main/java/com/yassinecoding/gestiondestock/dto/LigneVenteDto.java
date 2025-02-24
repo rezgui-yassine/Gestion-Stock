@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 public class LigneVenteDto {
     private Integer id;
     private VentsDto vente;
+    private ArticleDto article;
+
     private BigDecimal quantite;
     private BigDecimal prixUnitaire;
     private Integer idEntreprise;
